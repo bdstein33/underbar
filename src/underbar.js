@@ -118,6 +118,14 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var results = [];
+    _.each(array, function(i){
+      if (_.indexOf(results, i) < 0){
+        results.push(i);
+      }
+    })
+    
+    return results;
   };
 
 
