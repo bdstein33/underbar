@@ -246,7 +246,7 @@
         if (anyValid) {
           return true; 
         }
-        else{
+        else{ 
           return Boolean(item);
         }
       }, false)
