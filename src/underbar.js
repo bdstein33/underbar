@@ -398,8 +398,21 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var order = [];
+    var randNum;
+    var results = [];
+    while ( order.length < array.length ){
+      randNum = Math.round(Math.random() * (array.length-1));
+      if ( !_.contains(order, randNum)){
+        order.push(randNum)
+      }    
+    }
 
+    for ( var i=0; i<order.length; i+=1) {
+      results.push(array[order[i]]);
+    }
 
+    return results;
   };
 
 
