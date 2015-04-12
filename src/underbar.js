@@ -273,11 +273,33 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    var result = obj;
+    if (arguments.length > 1){
+      for (var i = 1; i < arguments.length; i+=1) {
+        for (var key in arguments[i]) {
+          result[key] = arguments[i][key];
+        }
+      }
+    }
+
+    return result;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var result = obj;
+    if (arguments.length > 1){
+      for (var i = 1; i < arguments.length; i+=1) {
+        for (var key in arguments[i]) {
+          if (!result.hasOwnProperty(key)){
+            result[key] = arguments[i][key];
+          }
+        }
+      }
+    }
+    
+    return result;
   };
 
 
@@ -321,6 +343,33 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    // var alreadyCalled = false;
+    // var result;
+    // var parameters = Array.prototype.slice.call(arguments)
+    // return function() {
+
+    //   if (!alreadyCalled) {
+    //     result = func.apply(this, arguments);
+    //     alreadyCalled = true;
+
+    //     return result;
+        
+    //   }
+    //   else if (parameters != Array.prototype.slice.call(arguments)[0]){
+    //     result = func.apply(this, arguments);
+        
+    //     console.log("---");
+    //     console.log("TESTING");
+    //     console.log(parameters);
+    //     console.log(Array.prototype.slice.call(arguments)[0]);
+
+    //     parameters = arguments;
+    //     return result;
+    //   }
+      
+    // };
+
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -330,6 +379,11 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments);
+    
+    return setTimeout(function(){
+      return func.apply(this, args.slice(2, args.length));
+    }, wait);
   };
 
 
@@ -344,6 +398,8 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+
+
   };
 
 
