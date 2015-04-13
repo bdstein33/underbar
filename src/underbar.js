@@ -343,33 +343,17 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    // var alreadyCalled = false;
-    // var result;
-    // var parameters = Array.prototype.slice.call(arguments)
-    // return function() {
+    var usedArgs = {};
 
-    //   if (!alreadyCalled) {
-    //     result = func.apply(this, arguments);
-    //     alreadyCalled = true;
-
-    //     return result;
-        
-    //   }
-    //   else if (parameters != Array.prototype.slice.call(arguments)[0]){
-    //     result = func.apply(this, arguments);
-        
-    //     console.log("---");
-    //     console.log("TESTING");
-    //     console.log(parameters);
-    //     console.log(Array.prototype.slice.call(arguments)[0]);
-
-    //     parameters = arguments;
-    //     return result;
-    //   }
+    return function() {
+      var currentArgs = Array.prototype.slice.call(arguments);
       
-    // };
+      if (!usedArgs.hasOwnProperty(currentArgs)){
+        usedArgs[currentArgs] = func.apply(this, arguments);
+      }
 
-
+      return usedArgs[currentArgs];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
