@@ -109,9 +109,9 @@
         var to = {};
         var from = {};
         var extended = _.extend(to, from);
-
         expect(extended).to.equal(to);
       });
+
 
       it('should extend an object with the attributes of another', function() {
         var to = {};
@@ -120,6 +120,7 @@
 
         expect(extended.a).to.equal('b');
       });
+
 
       it('should override properties found on the destination', function() {
         var to = { a: 'x' };
@@ -224,6 +225,7 @@
         expect(memoAdd(1, 2)).to.equal(3);
       });
 
+
       it('should give different results for different arguments', function() {
         expect(memoAdd(1, 2)).to.equal(3);
         expect(memoAdd(3, 4)).to.equal(7);
@@ -233,9 +235,9 @@
         // Here, we wrap a dummy function in a spy. A spy is a wrapper function (much like _.memoize
         // or _.once) that keeps track of interesting information about the function it's spying on;
         // e.g. whether or not the function has been called.
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function() { return 'Dummy output'; });       
         var memoSpy = _.memoize(spy);
-
+        
         memoSpy(10);
         expect(spy).to.have.been.calledOnce;
         memoSpy(10);
@@ -268,15 +270,15 @@
         expect(callback).to.have.been.calledWith(1, 2);
       });
     });
-
+    
     describe('shuffle', function() {
       it('should not modify the original object', function() {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();
-
         expect(shuffled).to.not.equal(numbers);
         expect(numbers).to.eql([4, 5, 6]);
       });
+    
       it('should have the same elements as the original object', function() {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();
