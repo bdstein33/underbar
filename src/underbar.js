@@ -146,7 +146,7 @@
    * as an example of this.
    */
 
-  // Takes an array of objects and returns and array of the values of
+  // Takes an array of objects and returns an array of the values of
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(collection, key) {
@@ -426,6 +426,45 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    var result = [];
+    if (typeof(iterator) === 'function'){
+      _.each(collection, function(item){
+        for (var i=0; i<result.length; i++){
+
+          if (iterator(item) < iterator(result[i]) || result[i] == undefined) {
+            result.splice(i, 0, item);
+            // console.log(result);
+            break;
+          }
+        }
+
+        if (_.indexOf(result, item) == -1) {
+          result.push(item);
+        }
+      });
+    }
+    else{
+       _.each(collection, function(item){
+        for (var i=0; i<result.length; i++){
+
+          if (item[iterator] < result[i][iterator] || result[i] == undefined) {
+            result.splice(i, 0, item);
+            // console.log(result);
+            break;
+          }
+        }
+
+        if (_.indexOf(result, item) == -1) {
+          result.push(item);
+        }
+      });
+    }
+
+
+
+    return result;
+
+
   };
 
   // Zip together two or more arrays with elements of the same index
