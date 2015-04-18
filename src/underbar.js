@@ -287,16 +287,14 @@
   // exists in obj
   _.defaults = function(obj) {
     var result = obj;
-    if (arguments.length > 1){
-      for (var i = 1; i < arguments.length; i+=1) {
-        for (var key in arguments[i]) {
-          if (!result.hasOwnProperty(key)){
-            result[key] = arguments[i][key];
-          }
+    for (var i = 1; i < arguments.length; i+=1) {
+      for (var key in arguments[i]) {
+        if (!result.hasOwnProperty(key)){
+          result[key] = arguments[i][key];
         }
       }
     }
-    
+
     return result;
   };
 
@@ -409,6 +407,18 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    return _.map(collection, function(val){
+      // IF THE ARGUMENT IS A KEY
+      if (typeof(functionOrKey) == 'string') {
+        return val[functionOrKey].apply(val, args);
+      }
+      // OTHERWISE TREAT IT AS A FUNCTION
+      else{
+        return functionOrKey.apply(val, args);
+      }
+
+    });
+
   };
 
   // Sort the object's values by a criterion produced by an iterator.
